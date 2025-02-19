@@ -44,12 +44,13 @@ export default function Index() {
       <View style={[styles.inputContainer, styles.spacing]}>
         <TextInput
           style={styles.input}
-          value={showPassword ? password : '•'.repeat(password.length)}
+          value={password}
           onChangeText={setPassword}
           placeholder="Enter Password"
           placeholderTextColor="gray"
           keyboardType="default"
           autoCapitalize="none"
+          secureTextEntry={!showPassword}
         />
 
         <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
