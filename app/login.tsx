@@ -11,11 +11,19 @@ export default function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [showEmoji, setShowEmoji] = useState(false);
 
   const router = useRouter();
 
   useLayoutEffect(() => {
   }, []);
+
+  const limitedEmojis = [
+    '😀', '😁', '😂', '🤣', '😃',
+    '😄', '😅', '😆', '😉', '😊',
+    '😋', '😎', '😍', '😘', '😗',
+    '😙', '😚', '🙂'
+  ];
 
   const handleLoginPress = async () => {
     const userStored = await AsyncStorage.getItem('user')
@@ -76,6 +84,31 @@ export default function Login() {
             style={styles.icon} 
           />
         </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => setShowEmoji(!showEmoji)} style={styles.emojiButton}>
+          <Text style={{ fontSize: 20 }}>😀</Text>
+        </TouchableOpacity>
+      </View>
+
+      <View>
+      {showEmoji && (
+        <View style={styles.emojiPickerOverlay}>
+          <View style={styles.emojiPicker}>
+            {limitedEmojis.map((emoji, i) => (
+              <TouchableOpacity
+                key={i}
+                onPress={() => {
+                  setPassword(password + emoji);
+                  setShowEmoji(false);
+                }}
+                style={styles.emojiItem}
+              >
+                <Text style={{ fontSize: 20 }}>{emoji}</Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+        </View>
+      )}
       </View>
 
       

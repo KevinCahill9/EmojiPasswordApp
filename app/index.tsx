@@ -1,12 +1,9 @@
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert} from 'react-native';
 import React, { useState, useLayoutEffect } from "react";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { useNavigation } from '@react-navigation/native';
 import styles from '../assets/styles/baseStyles';
 import  {useRouter} from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import EmojiSelector from 'react-native-emoji-selector';
-import { Modal } from 'react-native';
 
 
 //Hiding does not work as secureTextEntry cannot be used as it disables emoji's, also cant seem to get it working by manually updating with • .
