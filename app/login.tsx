@@ -1,27 +1,36 @@
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Alert} from 'react-native';
 import React, { useState, useLayoutEffect } from "react";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { useNavigation } from '@react-navigation/native';
+import { useRouter } from 'expo-router';
 import styles from '../assets/styles/baseStyles';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 //Hiding does not work as secureTextEntry cannot be used as it disables emoji's, also cant seem to get it working by manually updating with • .
-export default function Index() {
+export default function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
-  const navigation = useNavigation();
+  const router = useRouter();
 
   useLayoutEffect(() => {
-    navigation.setOptions({
-      headerShown: false,
-    });
-  }, [navigation]);
+  }, []);
 
-  const handleLoginPress = () => {
-    setUsername('');
-    setPassword('');
+  const handleLoginPress = async () => {
+    const userStored = await AsyncStorage.getItem('user')
+    if (userStored) {
+      const { username: storedUsername, password: storedPassword } = JSON.parse(userStored);
+      console.log('Stored Password:', storedPassword);
+      console.log('Entered Password:', password);
+      if (username == storedUsername && password == storedPassword) {
+        Alert.alert('Successful', 'You are now logged in', [ {text: 'Ok', onPress: () => router.push('/profile')}]);
+      } else {
+        Alert.alert('Wrong Details', 'Please try again');
+      }
+    } else {
+      Alert.alert('User does not exist', 'Please sign up')
+    }
   };
 
   return (
@@ -72,6 +81,10 @@ export default function Index() {
       
       <TouchableOpacity style={styles.signUpAndloginButton} onPress={handleLoginPress}>
         <Text style={styles.buttonText}>Login</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={styles.signUpAndloginButton} onPress={() => router.push('/')}>
+        <Text style={styles.buttonText}>Need a account ? Sign Up</Text>
       </TouchableOpacity>
     </View>
   );

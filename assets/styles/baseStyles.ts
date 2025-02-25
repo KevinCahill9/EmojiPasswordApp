@@ -49,6 +49,9 @@ const baseStyles = StyleSheet.create({
     color: 'white',
     fontWeight: 'bold',
   },
+  deleteButton: {
+    backgroundColor: 'red', 
+  },
 });
 
 export default baseStyles;
