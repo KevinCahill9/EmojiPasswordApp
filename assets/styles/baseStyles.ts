@@ -36,7 +36,7 @@ const baseStyles = StyleSheet.create({
   icon: {
     padding: 10,
   },
-  loginButton: {
+  signUpAndloginButton: {
     marginTop: 30, 
     backgroundColor: '#555', 
     paddingVertical: 10,

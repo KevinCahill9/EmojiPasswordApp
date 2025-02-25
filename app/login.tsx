@@ -1,35 +1,32 @@
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert} from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import React, { useState, useLayoutEffect } from "react";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
 import styles from '../assets/styles/baseStyles';
-import  {useRouter} from 'expo-router';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 //Hiding does not work as secureTextEntry cannot be used as it disables emoji's, also cant seem to get it working by manually updating with • .
-export default function SignUpScreen() {
+export default function Index() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
-  const router = useRouter();
+  const navigation = useNavigation();
 
   useLayoutEffect(() => {
-  }, []);
+    navigation.setOptions({
+      headerShown: false,
+    });
+  }, [navigation]);
 
-  const handleSignUp = async () => {
-    if (username && password) {
-      await AsyncStorage.setItem('user', JSON.stringify({username, password}));
-      Alert.alert('Signed up successfully', 'Please log in', [{text: 'Ok', onPress: () => router.push('/login')}]);
-    } else {
-      Alert.alert('Missing information', 'Enter both the username and password');
-    }
-  }
+  const handleLoginPress = () => {
+    setUsername('');
+    setPassword('');
+  };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Sign up</Text>
+      <Text style={styles.title}>Login</Text>
 
       
       <View style={[styles.inputContainer, styles.spacing]}>
@@ -48,8 +45,14 @@ export default function SignUpScreen() {
       <View style={[styles.inputContainer, styles.spacing]}>
         <TextInput
           style={styles.input}
-          value={password}
-          onChangeText={setPassword}
+          value={showPassword ? password : '•'.repeat(password.length)}
+          onChangeText={(text) => {
+            if (!showPassword) {
+              setPassword((prev) => text.length >= prev.length ? prev + text[text.length - 1] : prev.slice(0, -1));
+            } else {
+              setPassword(text);
+            }
+          }}
           placeholder="Enter Password"
           placeholderTextColor="gray"
           keyboardType="default"
@@ -67,8 +70,8 @@ export default function SignUpScreen() {
       </View>
 
       
-      <TouchableOpacity style={styles.signUpAndloginButton} onPress={handleSignUp}>
-        <Text style={styles.buttonText}>Sign up</Text>
+      <TouchableOpacity style={styles.signUpAndloginButton} onPress={handleLoginPress}>
+        <Text style={styles.buttonText}>Login</Text>
       </TouchableOpacity>
     </View>
   );
