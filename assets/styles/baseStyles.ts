@@ -49,6 +49,38 @@ const baseStyles = StyleSheet.create({
     color: 'white',
     fontWeight: 'bold',
   },
+  
+  emojiButton: {
+    padding: 10,
+  },
+  emojiPickerOverlay: {
+    position: 'absolute',
+    bottom: 80,
+    left: 20,
+    right: 20,
+    alignItems: 'center',
+  },
+  emojiPicker: {
+    backgroundColor: 'black',
+    padding: 5,
+    borderRadius: 10,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    borderWidth: 2,
+    borderColor: 'gray',
+    width: 300,
+  },
+  emojiItem: {
+    width: 35,
+    height: 35,
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: 5,
+  },
+
 });
+
+
 
 export default baseStyles;
