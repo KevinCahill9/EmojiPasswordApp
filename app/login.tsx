@@ -62,18 +62,13 @@ export default function Login() {
       <View style={[styles.inputContainer, styles.spacing]}>
         <TextInput
           style={styles.input}
-          value={showPassword ? password : '•'.repeat(password.length)}
-          onChangeText={(text) => {
-            if (!showPassword) {
-              setPassword((prev) => text.length >= prev.length ? prev + text[text.length - 1] : prev.slice(0, -1));
-            } else {
-              setPassword(text);
-            }
-          }}
+          value={password}
+          onChangeText={setPassword}
           placeholder="Enter Password"
           placeholderTextColor="gray"
           keyboardType="default"
           autoCapitalize="none"
+          secureTextEntry={!showPassword}
         />
 
         <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
