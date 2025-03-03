@@ -12,6 +12,7 @@ export default function Login() {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [showEmoji, setShowEmoji] = useState(false);
+  const [start, setStart] = useState(null);
 
   const router = useRouter();
 
@@ -25,6 +26,13 @@ export default function Login() {
     '😙', '😚', '🙂'
   ];
 
+  const handlePassword = (text) => {
+    if (!start && text.length > 0) {
+      setStart(Date.now());
+    }
+    setPassword(text);
+  }
+
   const handleLoginPress = async () => {
     const userStored = await AsyncStorage.getItem('user')
     if (userStored) {
@@ -33,6 +41,15 @@ export default function Login() {
       console.log('Entered Password:', password);
       if (username == storedUsername && password == storedPassword) {
         Alert.alert('Successful', 'You are now logged in', [ {text: 'Ok', onPress: () => router.push('/profile')}]);
+
+        const initialStart = await AsyncStorage.getItem('start');
+        const end = Date.now();
+
+        const timeTaken = (end - start) / 1000;
+        const fullTime = (end - JSON.parse(initialStart)) / 1000;
+
+        console.log("Time taken to enter password correctly (login): " + timeTaken);
+        console.log("Time taken to fully complete: " + fullTime);
       } else {
         Alert.alert('Wrong Details', 'Please try again');
       }
@@ -63,7 +80,7 @@ export default function Login() {
         <TextInput
           style={styles.input}
           value={password}
-          onChangeText={setPassword}
+          onChangeText={handlePassword}
           placeholder="Enter Password"
           placeholderTextColor="gray"
           keyboardType="default"

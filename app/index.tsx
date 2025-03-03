@@ -12,6 +12,7 @@ export default function SignUpScreen() {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [showEmoji, setShowEmoji] = useState(false);
+  const [start, setStart] = useState(null);
 
   const router = useRouter();
 
@@ -27,11 +28,26 @@ export default function SignUpScreen() {
 
   const handleSignUp = async () => {
     if (username && password) {
+
+      const end = Date.now();
+      if (start) { 
+        const timeTaken = (end - start) / 1000; 
+        console.log("Time taken to enter password correctly (sign-up): " + timeTaken);
+      }
+
+      await AsyncStorage.setItem('start', JSON.stringify(start));
       await AsyncStorage.setItem('user', JSON.stringify({username, password}));
       Alert.alert('Signed up successfully', 'Please log in', [{text: 'Ok', onPress: () => router.push('/login')}]);
     } else {
       Alert.alert('Missing information', 'Enter both the username and password');
     }
+  }
+
+  const handlePassword = (text) => {
+    if (!start && text.length > 0) {
+      setStart(Date.now());
+    }
+    setPassword(text);
   }
 
   return (
@@ -56,7 +72,7 @@ export default function SignUpScreen() {
         <TextInput
           style={styles.input}
           value={password}
-          onChangeText={setPassword}
+          onChangeText={handlePassword}
           placeholder="Enter Password"
           placeholderTextColor="gray"
           keyboardType="default"
