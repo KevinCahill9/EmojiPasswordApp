@@ -12,10 +12,12 @@ export default function profile() {
   const router = useRouter();
 
   const handleSignOut = async () => {
+    console.log("-----------------------------------");
     router.push('/');
   };
 
   const handleDeleteAccount = async () => {
+    console.log("-----------------------------------");
     await AsyncStorage.removeItem('user');
     router.push('/');
   };
