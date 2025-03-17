@@ -1,50 +1,56 @@
-# Welcome to your Expo app 👋
+# Alphanumeric vs. Emoji Password App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+This is a React Native app using Expo which allows users to sign up and log in using traditional alphanumeric passwords or incorporate emojis into their password.
 
-## Get started
+## Prerequisites
 
-1. Install dependencies
+Install dependencies
 
-   ```bash
-   npm install
-   ```
+- **[Node.js](https://nodejs.org/en)** - Required for running the project.
+- **Expo Go** (for running the app on a mobile device):
+   - [IOS Download](https://apps.apple.com/gb/app/expo-go/id982107779)
+   - [Android Download](https://play.google.com/store/apps/details?id=host.exp.exponent)
 
-2. Start the app
+   
 
-   ```bash
-    npx expo start
-   ```
 
-In the output, you'll find options to open the app in a
+## Getting Started
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
+### Clone the repository.
 ```bash
-npm run reset-project
+git clone https://github.com/KevinCahill9/EmojiPasswordApp.git
+
+cd EmojiPasswordApp
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+### Install necessary dependencies.
+```bash
+npm install
+```
 
-## Learn more
+### Start the development server.
+```bash
+npx expo start
+```
+### Running the app on your mobile device.
+1. Open Expo Go on your phone.
+2. Scan the QR code displayed within the terminal.
+3. The app will launch, displaying the Signup Screen.
 
-To learn more about developing your project with Expo, look at the following resources:
+## App Feature Set
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+### Signup Screen
+- Users are able to create an account by entering a username and password, using only alphanumeric characters or incorporated emojis.
+- After signing up, users are then directed to the Login Screen. 
+- Upon successful signup, the time taken to enter these registration details is displayed in the terminal.
 
-## Join the community
+### Login Screen
+- Users enter their registration details which they created. 
+- Login time and password information will be displayed in the terminal, alongside the total time taken to signup and login.
+- Upon successful login, users are navigated to the Profile screen. 
 
-Join our community of developers creating universal apps.
+### Profile Screen
+User Options:
+- Delete their account, returning them to the signup page. 
+- Log out, also directing them back to the signup page.
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
